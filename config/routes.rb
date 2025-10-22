@@ -1,5 +1,5 @@
 # Rails.application.routes.draw do
-  
+
 #   namespace :api do
 #     namespace :v1 do
 #       get "tags/index"
@@ -39,22 +39,22 @@
 #   # root "posts#index"
 # end
 Rails.application.routes.draw do
-root 'home#index'
-get 'home/index'
+root "home#index"
+get "home/index"
   namespace :api do
     namespace :v1 do
       resources :users do
-        resources :posts, only: [:index]
+        resources :posts, only: [ :index ]
       end
       resources :categories do
-        resources :posts, only: [:index]
+        resources :posts, only: [ :index ]
       end
       resources :posts do
-        resources :comments, only: [:index, :create]
+        resources :comments, only: [ :index, :create ]
       end
       resources :comments
       resources :tags do
-        resources :posts, only: [:index]
+        resources :posts, only: [ :index ]
       end
     end
   end

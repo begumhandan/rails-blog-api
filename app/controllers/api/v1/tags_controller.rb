@@ -1,13 +1,13 @@
 class Api::V1::TagsController < ApplicationController
-  before_action :set_tag, only: [:show, :update, :destroy]
+  before_action :set_tag, only: [ :show, :update, :destroy ]
 
   def index
     @tags = Tag.includes(:posts).all
-    render json: @tags, include: { posts: { include: [:user, :category] } }, status: :ok
+    render json: @tags, include: { posts: { include: [ :user, :category ] } }, status: :ok
   end
 
   def show
-    render json: @tag, include: { posts: { include: [:user, :category, :comments] } }, status: :ok
+    render json: @tag, include: { posts: { include: [ :user, :category, :comments ] } }, status: :ok
   end
 
   def create
@@ -37,7 +37,7 @@ class Api::V1::TagsController < ApplicationController
   def set_tag
     @tag = Tag.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Tag not found' }, status: :not_found
+    render json: { error: "Tag not found" }, status: :not_found
   end
 
   def tag_params

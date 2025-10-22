@@ -50,7 +50,7 @@ post1 = Post.create!(
   user: user1,
   category: tech
 )
-post1.tags << [ruby_tag, rails_tag, api_tag, backend_tag, tutorial_tag]
+post1.tags << [ ruby_tag, rails_tag, api_tag, backend_tag, tutorial_tag ]
 
 post2 = Post.create!(
   title: "RESTful API Tasarım Prensipleri",
@@ -58,7 +58,7 @@ post2 = Post.create!(
   user: user2,
   category: tech
 )
-post2.tags << [api_tag, web_tag, backend_tag]
+post2.tags << [ api_tag, web_tag, backend_tag ]
 
 post3 = Post.create!(
   title: "Database İlişkileri ve ActiveRecord",
@@ -66,7 +66,7 @@ post3 = Post.create!(
   user: user1,
   category: tech
 )
-post3.tags << [ruby_tag, rails_tag, database_tag, tutorial_tag]
+post3.tags << [ ruby_tag, rails_tag, database_tag, tutorial_tag ]
 
 post4 = Post.create!(
   title: "Yeni Başlayanlar İçin Ruby",
@@ -74,7 +74,7 @@ post4 = Post.create!(
   user: user3,
   category: education
 )
-post4.tags << [ruby_tag, beginner_tag, tutorial_tag]
+post4.tags << [ ruby_tag, beginner_tag, tutorial_tag ]
 
 post5 = Post.create!(
   title: "Sağlıklı Yaşam İçin 10 Öneri",
@@ -96,7 +96,7 @@ post7 = Post.create!(
   user: user1,
   category: tech
 )
-post7.tags << [rails_tag, web_tag, tutorial_tag]
+post7.tags << [ rails_tag, web_tag, tutorial_tag ]
 
 post8 = Post.create!(
   title: "Online Eğitim Platformları",
@@ -111,7 +111,7 @@ post9 = Post.create!(
   user: user2,
   category: tech
 )
-post9.tags << [api_tag, backend_tag, web_tag]
+post9.tags << [ api_tag, backend_tag, web_tag ]
 
 post10 = Post.create!(
   title: "Yoga ve Meditasyon",

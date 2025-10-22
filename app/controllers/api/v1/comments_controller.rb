@@ -1,13 +1,13 @@
 class Api::V1::CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :update, :destroy]
+  before_action :set_comment, only: [ :show, :update, :destroy ]
 
   def index
     @comments = Comment.includes(:user, :post).all
-    render json: @comments, include: { user: { only: [:id, :name] }, post: { only: [:id, :title] } }, status: :ok
+    render json: @comments, include: { user: { only: [ :id, :name ] }, post: { only: [ :id, :title ] } }, status: :ok
   end
 
   def show
-    render json: @comment, include: { user: {}, post: { include: [:user, :category] } }, status: :ok
+    render json: @comment, include: { user: {}, post: { include: [ :user, :category ] } }, status: :ok
   end
 
   def create
@@ -37,7 +37,7 @@ class Api::V1::CommentsController < ApplicationController
   def set_comment
     @comment = Comment.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Comment not found' }, status: :not_found
+    render json: { error: "Comment not found" }, status: :not_found
   end
 
   def comment_params

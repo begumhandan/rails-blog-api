@@ -1,13 +1,13 @@
 class Api::V1::CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :update, :destroy]
+  before_action :set_category, only: [ :show, :update, :destroy ]
 
   def index
     @categories = Category.includes(:posts).all
-    render json: @categories, include: { posts: { include: [:user, :tags] } }, status: :ok
+    render json: @categories, include: { posts: { include: [ :user, :tags ] } }, status: :ok
   end
 
   def show
-    render json: @category, include: { posts: { include: [:user, :comments, :tags] } }, status: :ok
+    render json: @category, include: { posts: { include: [ :user, :comments, :tags ] } }, status: :ok
   end
 
   def create
@@ -37,7 +37,7 @@ class Api::V1::CategoriesController < ApplicationController
   def set_category
     @category = Category.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Category not found' }, status: :not_found
+    render json: { error: "Category not found" }, status: :not_found
   end
 
   def category_params

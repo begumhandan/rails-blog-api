@@ -1,20 +1,20 @@
 class Api::V1::PostsController < ApplicationController
-  before_action :set_post, only: [:show, :update, :destroy]
+  before_action :set_post, only: [ :show, :update, :destroy ]
 
   def index
     @posts = Post.includes(:user, :category, :comments, :tags).all
-    render json: @posts, include: { 
-      user: { only: [:id, :name] }, 
-      category: {}, 
+    render json: @posts, include: {
+      user: { only: [ :id, :name ] },
+      category: {},
       comments: { include: :user },
       tags: {}
     }, status: :ok
   end
 
   def show
-    render json: @post, include: { 
-      user: { only: [:id, :name] }, 
-      category: {}, 
+    render json: @post, include: {
+      user: { only: [ :id, :name ] },
+      category: {},
       comments: { include: :user },
       tags: {}
     }, status: :ok
@@ -47,7 +47,7 @@ class Api::V1::PostsController < ApplicationController
   def set_post
     @post = Post.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Post not found' }, status: :not_found
+    render json: { error: "Post not found" }, status: :not_found
   end
 
   def post_params

@@ -1,13 +1,13 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [ :show, :update, :destroy ]
 
   def index
     @users = User.includes(:posts, :comments).all
-    render json: @users, include: { posts: { include: [:category, :tags] }, comments: {} }, status: :ok
+    render json: @users, include: { posts: { include: [ :category, :tags ] }, comments: {} }, status: :ok
   end
 
   def show
-    render json: @user, include: { posts: { include: [:category, :tags, :comments] }, comments: {} }, status: :ok
+    render json: @user, include: { posts: { include: [ :category, :tags, :comments ] }, comments: {} }, status: :ok
   end
 
   def create
@@ -37,7 +37,7 @@ class Api::V1::UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'User not found' }, status: :not_found
+    render json: { error: "User not found" }, status: :not_found
   end
 
   def user_params
