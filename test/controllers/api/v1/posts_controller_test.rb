@@ -17,13 +17,13 @@ class Api::V1::PostsControllerTest < ActionDispatch::IntegrationTest
   test "should create post" do
     user = User.create!(name: "Test User", email: "test@example.com")
     category = Category.create!(name: "Test Category")
-    post api_v1_posts_url, params: { 
-      post: { 
-        title: "New Post", 
+    post api_v1_posts_url, params: {
+      post: {
+        title: "New Post",
         content: "New content",
         user_id: user.id,
         category_id: category.id
-      } 
+      }
     }
     assert_response :created
   end

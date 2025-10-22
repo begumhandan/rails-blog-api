@@ -19,12 +19,12 @@ class Api::V1::CommentsControllerTest < ActionDispatch::IntegrationTest
     user = User.create!(name: "Test User", email: "test@example.com")
     category = Category.create!(name: "Test Category")
     post = Post.create!(title: "Test Post", content: "Test content", user: user, category: category)
-    post api_v1_comments_url, params: { 
-      comment: { 
+    post api_v1_comments_url, params: {
+      comment: {
         content: "New Comment",
         user_id: user.id,
         post_id: post.id
-      } 
+      }
     }
     assert_response :created
   end
