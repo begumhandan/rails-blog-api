@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "pages/home"
+  get "home/index"
   # Ana sayfa
   root "pages#home"
 
