@@ -1,0 +1,23 @@
+/* Büyük CSS dosyası - 1000+ satır simülasyonu */
+body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; color: white; }
+h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+h2 { font-size: 2rem; color: #333; margin-top: 2rem; }
+h3 { font-size: 1.5rem; color: #555; }
+p { line-height: 1.6; color: #666; margin-bottom: 1rem; }
+.card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+.button { display: inline-block; padding: 12px 24px; background: #667eea; color: white; border-radius: 8px; text-decoration: none; }
+.button:hover { background: #5568d3; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.stat { text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 8px; }
+.stat-number { font-size: 3rem; font-weight: bold; color: #667eea; }
+footer { background: #1f2937; color: white; padding: 2rem; text-align: center; margin-top: 4rem; }
+/* Daha fazla CSS... (dosyayı büyütmek için) */
+.nav { display: flex; gap: 1rem; }
+.nav-item { padding: 0.5rem 1rem; }
+.sidebar { width: 300px; background: #f5f5f5; }
+.main-content { flex: 1; padding: 2rem; }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 12px; border: 1px solid #ddd; }
+/* ... ve daha fazlası */

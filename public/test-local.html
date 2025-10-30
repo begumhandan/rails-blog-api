@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDN Test - Lokal Versiyon</title>
+    <meta name="description" content="Lokal CSS ve JS kullanarak performans testi">
+    
+    <!-- LOKAL CSS - Sunucudan yüklenir -->
+    <link rel="stylesheet" href="/styles-local.css">
+    
+    <!-- LOKAL JavaScript -->
+    <script src="/script-local.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🔴 Lokal Versiyon (CDN Yok)</h1>
+            <p>CSS ve JavaScript dosyaları lokal sunucudan yükleniyor</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <h2>📊 Test Bilgileri</h2>
+            <p><strong>CSS:</strong> /styles-local.css (Lokal sunucudan)</p>
+            <p><strong>JavaScript:</strong> /script-local.js (Lokal sunucudan)</p>
+            <p><strong>Dosya Boyutu:</strong> ~50KB toplam</p>
+        </div>
+        
+        <div class="grid">
+            <div class="stat">
+                <div class="stat-number">150ms</div>
+                <p>Beklenen Yükleme</p>
+            </div>
+            <div class="stat">
+                <div class="stat-number">0</div>
+                <p>CDN Cache Hit</p>
+            </div>
+            <div class="stat">
+                <div class="stat-number">1</div>
+                <p>Sunucu</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>🧪 Lighthouse ile Test Edin</h2>
+            <ol>
+                <li>F12 tuşuna basın</li>
+                <li>Lighthouse sekmesine gidin</li>
+                <li>Sadece Performance seçin</li>
+                <li>Analyze butonuna tıklayın</li>
+                <li>Sonuçları kaydedin</li>
+            </ol>
+        </div>
+        
+        <div class="card">
+            <h2>📝 Örnek İçerik</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <a href="#" class="button">Test Butonu</a>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Blog API - Lokal Versiyon Test</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog API - Ruby on Rails Platform</title>
+  <meta name="description" content="Modern, erişilebilir ve performanslı blog API sistemi">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--primary:#2563eb;--secondary:#1e40af;--text:#1f2937;--light:#6b7280;--bg:#f9fafb;--border:#e5e7eb}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;color:var(--text)}
+    .skip-link{position:absolute;top:-40px;left:0;background:var(--primary);color:#fff;padding:8px 16px;text-decoration:none;z-index:100}
+    .skip-link:focus{top:0}
+    header{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:#fff;padding:2rem 0;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    h1{font-size:2.5rem;margin-bottom:.5rem;font-weight:700}
+    .subtitle{font-size:1.25rem;opacity:.95}
+    nav{background:#fff;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:50}
+    nav ul{list-style:none;display:flex;gap:0;flex-wrap:wrap}
+    nav li{border-right:1px solid var(--border)}
+    nav li:last-child{border-right:none}
+    nav a{display:block;padding:1rem 1.5rem;color:var(--text);text-decoration:none;font-weight:500;transition:all .2s}
+    nav a:hover,nav a:focus{background:var(--primary);color:#fff;outline:2px solid var(--primary);outline-offset:-2px}
+    main{padding:3rem 0;min-height:60vh}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-bottom:3rem}
+    .stat-card{background:#fff;border:2px solid var(--border);border-radius:12px;padding:2rem;text-align:center;transition:transform .2s,box-shadow .2s}
+    .stat-card:hover{transform:translateY(-4px);box-shadow:0 8px 16px rgba(0,0,0,.1)}
+    .stat-number{font-size:3rem;font-weight:700;color:var(--primary);display:block;margin-bottom:.5rem}
+    .stat-label{font-size:1.1rem;color:var(--light)}
+    section{margin-bottom:3rem}
+    h2{font-size:2rem;color:var(--text);margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:3px solid var(--primary)}
+    .api-list{background:var(--bg);border-radius:12px;padding:2rem}
+    .api-endpoint{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;transition:border-color .2s}
+    .api-endpoint:hover{border-color:var(--primary)}
+    .method{display:inline-block;padding:.5rem 1rem;border-radius:6px;font-weight:700;font-size:.875rem;min-width:80px;text-align:center;color:#fff}
+    .method.get{background:#10b981}
+    .method.post{background:#3b82f6}
+    .method.put{background:#f59e0b}
+    .method.delete{background:#ef4444}
+    .endpoint-url{font-family:'Courier New',monospace;color:var(--text);flex-grow:1}
+    .contact-form{background:#fff;border:2px solid var(--border);border-radius:12px;padding:2rem;max-width:600px}
+    .form-group{margin-bottom:1.5rem}
+    label{display:block;font-weight:600;margin-bottom:.5rem;color:var(--text)}
+    input[type="text"],input[type="email"],textarea{width:100%;padding:.75rem;border:2px solid var(--border);border-radius:6px;font-size:1rem;font-family:inherit;transition:border-color .2s}
+    input:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+    button{background:var(--primary);color:#fff;padding:.875rem 2rem;border:none;border-radius:6px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s}
+    button:hover{background:var(--secondary)}
+    button:focus{outline:3px solid var(--primary);outline-offset:2px}
+    button:active{transform:scale(.98)}
+    footer{background:var(--text);color:#fff;padding:2rem 0;text-align:center;margin-top:4rem}
+    .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+    @media(max-width:768px){
+      h1{font-size:2rem}
+      .stats{grid-template-columns:1fr}
+      nav ul{flex-direction:column}
+      nav li{border-right:none;border-bottom:1px solid var(--border)}
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Ana içeriğe geç</a>
+
+  <header role="banner">
+    <div class="container">
+      <h1>Blog API Platform</h1>
+      <p class="subtitle">Ruby on Rails ile Geliştirilmiş Modern REST API</p>
+    </div>
+  </header>
+
+  <nav role="navigation" aria-label="Ana navigasyon">
+    <div class="container">
+      <ul>
+        <li><a href="#main-content">Ana Sayfa</a></li>
+        <li><a href="#stats">İstatistikler</a></li>
+        <li><a href="#api-docs">API Dokümantasyonu</a></li>
+        <li><a href="#contact">İletişim</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content" role="main">
+    <div class="container">
+      
+      <!-- Statistics Section -->
+      <section id="stats" aria-labelledby="stats-heading">
+        <h2 id="stats-heading">Sistem İstatistikleri</h2>
+        <div class="stats">
+  <div class="stats">
+      <div class="stat-card">
+        <span class="stat-number"><%= User.count %></span>
+        <div class="stat-label">Kullanıcı</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number"><%= Post.count %></span>
+        <div class="stat-label">Gönderi</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number"><%= Comment.count %></span>
+        <div class="stat-label">Yorum</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number"><%= Category.count %></span>
+        <div class="stat-label">Kategori</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number"><%= Tag.count %></span>
+        <div class="stat-label">Etiket</div>
+      </div>
+    </div> 
+
+      </section>
+
+      <section id="api-docs" aria-labelledby="api-heading">
+        <h2 id="api-heading">API Endpoints</h2>
+        <div class="api-list">
+          <div class="api-endpoint">
+            <span class="method get" role="text">GET</span>
+            <code class="endpoint-url">/api/v1/users</code>
+          </div>
+          <div class="api-endpoint">
+            <span class="method post" role="text">POST</span>
+            <code class="endpoint-url">/api/v1/users</code>
+          </div>
+          <div class="api-endpoint">
+            <span class="method get" role="text">GET</span>
+            <code class="endpoint-url">/api/v1/posts</code>
+          </div>
+          <div class="api-endpoint">
+            <span class="method post" role="text">POST</span>
+            <code class="endpoint-url">/api/v1/posts</code>
+          </div>
+          <div class="api-endpoint">
+            <span class="method get" role="text">GET</span>
+            <code class="endpoint-url">/api/v1/categories</code>
+          </div>
+          <div class="api-endpoint">
+            <span class="method put" role="text">PUT</span>
+            <code class="endpoint-url">/api/v1/posts/:id</code>
+          </div>
+          <div class="api-endpoint">
+            <span class="method delete" role="text">DELETE</span>
+            <code class="endpoint-url">/api/v1/posts/:id</code>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">İletişim Formu</h2>
+        <form class="contact-form" action="#" method="post" aria-label="İletişim formu">
+          <div class="form-group">
+            <label for="name">İsim <span aria-label="zorunlu alan">*</span></label>
+            <input type="text" id="name" name="name" required aria-required="true">
+          </div>
+          <div class="form-group">
+            <label for="email">E-posta <span aria-label="zorunlu alan">*</span></label>
+            <input type="email" id="email" name="email" required aria-required="true">
+          </div>
+          <div class="form-group">
+            <label for="message">Mesaj <span aria-label="zorunlu alan">*</span></label>
+            <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+          </div>
+          <button type="submit">Gönder</button>
+        </form>
+      </section>
+
+    </div>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p>&copy; 2025 Blog API Platform. Tüm hakları saklıdır.</p>
+      <p>Ruby on Rails 7 ile geliştirilmiştir.</p>
+    </div>
+  </footer>
+</body>
+</html>

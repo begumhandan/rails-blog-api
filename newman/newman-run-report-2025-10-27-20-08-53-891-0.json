@@ -1,0 +1,3061 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+      "exporter_id": "46610723"
+    },
+    "item": [
+      {
+        "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+        "name": "POST Post",
+        "request": {
+          "description": {
+            "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "v1",
+              "posts"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "type": "string",
+                "value": " {{auth_token}}",
+                "key": "token"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "// Test 1: Status 201 Created",
+                "pm.test(\"Post created successfully\", function () {",
+                "    pm.response.to.have.status(201);",
+                "});",
+                "",
+                "// Test 2: Response'da ID var mı",
+                "pm.test(\"Response has ID\", function () {",
+                "    var jsonData = pm.response.json();",
+                "    pm.expect(jsonData).to.have.property('id');",
+                "    pm.expect(jsonData.id).to.be.a('number');",
+                "});",
+                "",
+                "// Test 3: Title doğru mu",
+                "pm.test(\"Title is correct\", function () {",
+                "    var jsonData = pm.response.json();",
+                "    pm.expect(jsonData.title).to.eql(\"Yeni Yazı\");",
+                "});"
+              ],
+              "_lastExecutionId": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+            }
+          },
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "75d64dee-28d9-456b-a48b-42ab4c97e867",
+              "type": "text/javascript",
+              "packages": {},
+              "_lastExecutionId": "1b3b9d79-38e5-447f-b297-ff1c158e83c7"
+            }
+          }
+        ]
+      },
+      {
+        "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+        "name": "GET Users",
+        "request": {
+          "url": {
+            "path": [
+              "api",
+              "v1",
+              "users"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET",
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "type": "string",
+                "value": " {{auth_token}}",
+                "key": "token"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "// Test 1: Status code kontrolü\r",
+                "pm.test(\"Status code is 200\", function () {\r",
+                "    pm.response.to.have.status(200);\r",
+                "});\r",
+                "\r",
+                "// Test 2: Response array mi kontrol et\r",
+                "pm.test(\"Response is an array\", function () {\r",
+                "    var jsonData = pm.response.json();\r",
+                "    pm.expect(jsonData).to.be.an('array');\r",
+                "});\r",
+                "\r",
+                "// Test 3: İlk kullanıcının email'i doğru mu\r",
+                "pm.test(\"First user has correct structure\", function () {\r",
+                "    var jsonData = pm.response.json();\r",
+                "    pm.expect(jsonData[0]).to.have.property('name');\r",
+                "    pm.expect(jsonData[0]).to.have.property('email');\r",
+                "});"
+              ],
+              "_lastExecutionId": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+            }
+          }
+        ]
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "4f870edd-07d5-444e-8e0d-48ca7c286d0e",
+          "type": "text/javascript",
+          "exec": [
+            ""
+          ],
+          "_lastExecutionId": "df79ed5e-0a47-4ac8-814b-0637bea85a7f"
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "id": "da1a778b-c91a-4d3c-846c-95411e7d7f93",
+          "type": "text/javascript",
+          "exec": [
+            ""
+          ],
+          "_lastExecutionId": "14681f3e-0a45-4a75-98d7-380657c843c6"
+        }
+      }
+    ],
+    "variable": [
+      {
+        "type": "any",
+        "value": "1",
+        "key": "id"
+      },
+      {
+        "type": "any",
+        "value": "https://template.postman-echo.com",
+        "key": "base_url"
+      }
+    ],
+    "info": {
+      "_postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+      "name": "Blog API Testleri",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_at": "2025-10-27T19:35:02.805Z",
+      "postman_exported_using": "Postman/11.69.0"
+    },
+    "id": "8336287d-37af-448e-a325-6b6a09548a4d",
+    "name": "Blog API Enviroment",
+    "values": [
+      {
+        "type": "any",
+        "value": "",
+        "key": "base_url"
+      },
+      {
+        "type": "any",
+        "value": "",
+        "key": "auth_token"
+      }
+    ]
+  },
+  "globals": {
+    "id": "d827b626-98f2-4979-a175-a994f683ad21",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 7,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 2,
+        "pending": 0,
+        "failed": 2
+      },
+      "tests": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 6,
+        "pending": 0,
+        "failed": 6
+      },
+      "testScripts": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 0,
+      "responseMin": 0,
+      "responseMax": 0,
+      "responseSd": 0,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1761595733818,
+      "completed": 1761595733872
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 2,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "b7f779de-9c8c-4a4e-80bc-7b87290287a2",
+          "httpRequestId": "3a00e5f1-c9b1-4143-ae8d-5062b536e422"
+        },
+        "item": {
+          "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+          "name": "POST Post",
+          "request": {
+            "description": {
+              "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "posts"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": " {{auth_token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Test 1: Status 201 Created",
+                  "pm.test(\"Post created successfully\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "// Test 2: Response'da ID var mı",
+                  "pm.test(\"Response has ID\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "    pm.expect(jsonData.id).to.be.a('number');",
+                  "});",
+                  "",
+                  "// Test 3: Title doğru mu",
+                  "pm.test(\"Title is correct\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.title).to.eql(\"Yeni Yazı\");",
+                  "});"
+                ],
+                "_lastExecutionId": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "75d64dee-28d9-456b-a48b-42ab4c97e867",
+                "type": "text/javascript",
+                "packages": {},
+                "_lastExecutionId": "1b3b9d79-38e5-447f-b297-ff1c158e83c7"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "path": [
+              "v1",
+              "posts"
+            ],
+            "host": [
+              "api"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "Authorization",
+              "value": "Bearer  ",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "ba192c43-1d46-4467-b309-4081ec69ad7b",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "type": "string",
+                "value": " ",
+                "key": "token"
+              }
+            ]
+          }
+        },
+        "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+        "requestError": {},
+        "assertions": [
+          {
+            "assertion": "Post created successfully",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 0,
+              "test": "Post created successfully",
+              "message": "expected PostmanResponse{ …(5) } to have property 'code'",
+              "stack": "AssertionError: expected PostmanResponse{ …(5) } to have property 'code'\n   at Object.eval sandbox-script.js:1:1)"
+            }
+          },
+          {
+            "assertion": "Response has ID",
+            "skipped": false,
+            "error": {
+              "name": "JSONError",
+              "index": 1,
+              "test": "Response has ID",
+              "message": "\"undefined\" is not valid JSON",
+              "stack": "JSONError: \"undefined\" is not valid JSON\n   at Object.eval sandbox-script.js:2:1)"
+            }
+          },
+          {
+            "assertion": "Title is correct",
+            "skipped": false,
+            "error": {
+              "name": "JSONError",
+              "index": 2,
+              "test": "Title is correct",
+              "message": "\"undefined\" is not valid JSON",
+              "stack": "JSONError: \"undefined\" is not valid JSON\n   at Object.eval sandbox-script.js:3:1)"
+            }
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "5c572ce1-86a9-4870-bc0a-88de355164d6",
+          "length": 2,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "3f0cca49-315a-459a-a6c5-4a5827e5188d"
+        },
+        "item": {
+          "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+          "name": "GET Users",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": " {{auth_token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Test 1: Status code kontrolü\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Test 2: Response array mi kontrol et\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "// Test 3: İlk kullanıcının email'i doğru mu\r",
+                  "pm.test(\"First user has correct structure\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData[0]).to.have.property('name');\r",
+                  "    pm.expect(jsonData[0]).to.have.property('email');\r",
+                  "});"
+                ],
+                "_lastExecutionId": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "path": [
+              "v1",
+              "users"
+            ],
+            "host": [
+              "api"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer  ",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "ca67d6b9-a56e-494f-adcf-27656ee6ea2f",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET",
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "type": "string",
+                "value": " ",
+                "key": "token"
+              }
+            ]
+          }
+        },
+        "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+        "requestError": {},
+        "assertions": [
+          {
+            "assertion": "Status code is 200",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 0,
+              "test": "Status code is 200",
+              "message": "expected PostmanResponse{ …(5) } to have property 'code'",
+              "stack": "AssertionError: expected PostmanResponse{ …(5) } to have property 'code'\n   at Object.eval sandbox-script.js:1:2)"
+            }
+          },
+          {
+            "assertion": "Response is an array",
+            "skipped": false,
+            "error": {
+              "name": "JSONError",
+              "index": 1,
+              "test": "Response is an array",
+              "message": "\"undefined\" is not valid JSON",
+              "stack": "JSONError: \"undefined\" is not valid JSON\n   at Object.eval sandbox-script.js:2:2)"
+            }
+          },
+          {
+            "assertion": "First user has correct structure",
+            "skipped": false,
+            "error": {
+              "name": "JSONError",
+              "index": 2,
+              "test": "First user has correct structure",
+              "message": "\"undefined\" is not valid JSON",
+              "stack": "JSONError: \"undefined\" is not valid JSON\n   at Object.eval sandbox-script.js:3:2)"
+            }
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 0
+    },
+    "failures": [
+      {
+        "error": {
+          "name": "Error",
+          "message": "Invalid URI \"http:///api/v1/posts\"",
+          "stack": "Error: Invalid URI \"http:///api/v1/posts\"\n    at Request.init (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-request/request.js:399:31)\n    at new Request (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-request/request.js:226:8)\n    at request (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-request/index.js:46:10)\n    at /mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js:79:23\n    at wrapper (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:273:20)\n    at next (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:5797:24)\n    at /mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:329:20\n    at setCertificate (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js:50:20)\n    at /mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js:74:13\n    at nextTask (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:5791:13)\n    at next (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:5799:13)\n    at /mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:329:20\n    at setProxy (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js:31:9)\n    at /mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js:71:13\n    at nextTask (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:5791:13)\n    at Object.waterfall (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:5802:9)",
+          "checksum": "3a50a2384f22b0b2c45907728242872c",
+          "id": "7b2758c1-f272-4fe8-95c9-1058e49e6488",
+          "timestamp": 1761595733838,
+          "stacktrace": [
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-request/request.js",
+              "lineNumber": 399,
+              "functionName": "Request.init",
+              "typeName": "Request",
+              "methodName": "init",
+              "columnNumber": 31,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-request/request.js",
+              "lineNumber": 226,
+              "functionName": "new Request",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 8,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-request/index.js",
+              "lineNumber": 46,
+              "functionName": "request",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 10,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js",
+              "lineNumber": 79,
+              "functionName": null,
+              "typeName": null,
+              "methodName": null,
+              "columnNumber": 23,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 273,
+              "functionName": "wrapper",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 20,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 5797,
+              "functionName": "next",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 24,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 329,
+              "functionName": null,
+              "typeName": null,
+              "methodName": null,
+              "columnNumber": 20,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js",
+              "lineNumber": 50,
+              "functionName": "setCertificate",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 20,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js",
+              "lineNumber": 74,
+              "functionName": null,
+              "typeName": null,
+              "methodName": null,
+              "columnNumber": 13,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 5791,
+              "functionName": "nextTask",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 13,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 5799,
+              "functionName": "next",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 13,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 329,
+              "functionName": null,
+              "typeName": null,
+              "methodName": null,
+              "columnNumber": 20,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js",
+              "lineNumber": 31,
+              "functionName": "setProxy",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 9,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js",
+              "lineNumber": 71,
+              "functionName": null,
+              "typeName": null,
+              "methodName": null,
+              "columnNumber": 13,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 5791,
+              "functionName": "nextTask",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 13,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 5802,
+              "functionName": "Object.waterfall",
+              "typeName": "Object",
+              "methodName": "waterfall",
+              "columnNumber": 9,
+              "native": false
+            }
+          ]
+        },
+        "at": "request",
+        "source": {
+          "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+          "name": "POST Post",
+          "request": {
+            "description": {
+              "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "http",
+              "path": [
+                "v1",
+                "posts"
+              ],
+              "host": [
+                "api"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "system": true
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer  ",
+                "system": true
+              },
+              {
+                "key": "User-Agent",
+                "value": "PostmanRuntime/7.39.1",
+                "system": true
+              },
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "system": true
+              },
+              {
+                "key": "Cache-Control",
+                "value": "no-cache",
+                "system": true
+              },
+              {
+                "key": "Postman-Token",
+                "value": "ba192c43-1d46-4467-b309-4081ec69ad7b",
+                "system": true
+              },
+              {
+                "key": "Host",
+                "value": "",
+                "system": true
+              },
+              {
+                "key": "Accept-Encoding",
+                "value": "gzip, deflate, br",
+                "system": true
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive",
+                "system": true
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": " ",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Test 1: Status 201 Created",
+                  "pm.test(\"Post created successfully\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "// Test 2: Response'da ID var mı",
+                  "pm.test(\"Response has ID\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "    pm.expect(jsonData.id).to.be.a('number');",
+                  "});",
+                  "",
+                  "// Test 3: Title doğru mu",
+                  "pm.test(\"Title is correct\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.title).to.eql(\"Yeni Yazı\");",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "75d64dee-28d9-456b-a48b-42ab4c97e867",
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ]
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 2,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "b7f779de-9c8c-4a4e-80bc-7b87290287a2",
+          "httpRequestId": "3a00e5f1-c9b1-4143-ae8d-5062b536e422"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 0,
+          "test": "Post created successfully",
+          "message": "expected PostmanResponse{ …(5) } to have property 'code'",
+          "stack": "AssertionError: expected PostmanResponse{ …(5) } to have property 'code'\n   at Object.eval sandbox-script.js:1:1)",
+          "checksum": "e3d518925736531ebada7bfbc2f9beb9",
+          "id": "bb9bdc49-ef2d-4f89-b4ff-4c71628ec3f9",
+          "timestamp": 1761595733853,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 1,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:0 in test-script",
+        "source": {
+          "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+          "name": "POST Post",
+          "request": {
+            "description": {
+              "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "posts"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": " {{auth_token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Test 1: Status 201 Created",
+                  "pm.test(\"Post created successfully\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "// Test 2: Response'da ID var mı",
+                  "pm.test(\"Response has ID\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "    pm.expect(jsonData.id).to.be.a('number');",
+                  "});",
+                  "",
+                  "// Test 3: Title doğru mu",
+                  "pm.test(\"Title is correct\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.title).to.eql(\"Yeni Yazı\");",
+                  "});"
+                ],
+                "_lastExecutionId": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "75d64dee-28d9-456b-a48b-42ab4c97e867",
+                "type": "text/javascript",
+                "packages": {},
+                "_lastExecutionId": "1b3b9d79-38e5-447f-b297-ff1c158e83c7"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+            "exporter_id": "46610723"
+          },
+          "item": [
+            {
+              "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+              "name": "POST Post",
+              "request": {
+                "description": {
+                  "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "posts"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": " {{auth_token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Test 1: Status 201 Created",
+                      "pm.test(\"Post created successfully\", function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "",
+                      "// Test 2: Response'da ID var mı",
+                      "pm.test(\"Response has ID\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('id');",
+                      "    pm.expect(jsonData.id).to.be.a('number');",
+                      "});",
+                      "",
+                      "// Test 3: Title doğru mu",
+                      "pm.test(\"Title is correct\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData.title).to.eql(\"Yeni Yazı\");",
+                      "});"
+                    ],
+                    "_lastExecutionId": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "75d64dee-28d9-456b-a48b-42ab4c97e867",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "_lastExecutionId": "1b3b9d79-38e5-447f-b297-ff1c158e83c7"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+              "name": "GET Users",
+              "request": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": " {{auth_token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Test 1: Status code kontrolü\r",
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "// Test 2: Response array mi kontrol et\r",
+                      "pm.test(\"Response is an array\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.be.an('array');\r",
+                      "});\r",
+                      "\r",
+                      "// Test 3: İlk kullanıcının email'i doğru mu\r",
+                      "pm.test(\"First user has correct structure\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData[0]).to.have.property('name');\r",
+                      "    pm.expect(jsonData[0]).to.have.property('email');\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "4f870edd-07d5-444e-8e0d-48ca7c286d0e",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "df79ed5e-0a47-4ac8-814b-0637bea85a7f"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "da1a778b-c91a-4d3c-846c-95411e7d7f93",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "14681f3e-0a45-4a75-98d7-380657c843c6"
+              }
+            }
+          ],
+          "variable": [
+            {
+              "type": "any",
+              "value": "1",
+              "key": "id"
+            },
+            {
+              "type": "any",
+              "value": "https://template.postman-echo.com",
+              "key": "base_url"
+            }
+          ],
+          "info": {
+            "_postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+            "name": "Blog API Testleri",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+            "description": {
+              "content": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+              "type": "text/plain"
+            }
+          }
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 2,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "b7f779de-9c8c-4a4e-80bc-7b87290287a2",
+          "httpRequestId": "3a00e5f1-c9b1-4143-ae8d-5062b536e422",
+          "scriptId": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+          "execution": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+        }
+      },
+      {
+        "error": {
+          "name": "JSONError",
+          "index": 1,
+          "test": "Response has ID",
+          "message": "\"undefined\" is not valid JSON",
+          "stack": "JSONError: \"undefined\" is not valid JSON\n   at Object.eval sandbox-script.js:2:1)",
+          "checksum": "4f7834f72c7cbf19a9e8f9265e010f1f",
+          "id": "1dc4e71f-1308-4a82-a4c5-16d3be620711",
+          "timestamp": 1761595733853,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 2,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:1 in test-script",
+        "source": {
+          "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+          "name": "POST Post",
+          "request": {
+            "description": {
+              "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "posts"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": " {{auth_token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Test 1: Status 201 Created",
+                  "pm.test(\"Post created successfully\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "// Test 2: Response'da ID var mı",
+                  "pm.test(\"Response has ID\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "    pm.expect(jsonData.id).to.be.a('number');",
+                  "});",
+                  "",
+                  "// Test 3: Title doğru mu",
+                  "pm.test(\"Title is correct\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.title).to.eql(\"Yeni Yazı\");",
+                  "});"
+                ],
+                "_lastExecutionId": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "75d64dee-28d9-456b-a48b-42ab4c97e867",
+                "type": "text/javascript",
+                "packages": {},
+                "_lastExecutionId": "1b3b9d79-38e5-447f-b297-ff1c158e83c7"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+            "exporter_id": "46610723"
+          },
+          "item": [
+            {
+              "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+              "name": "POST Post",
+              "request": {
+                "description": {
+                  "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "posts"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": " {{auth_token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Test 1: Status 201 Created",
+                      "pm.test(\"Post created successfully\", function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "",
+                      "// Test 2: Response'da ID var mı",
+                      "pm.test(\"Response has ID\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('id');",
+                      "    pm.expect(jsonData.id).to.be.a('number');",
+                      "});",
+                      "",
+                      "// Test 3: Title doğru mu",
+                      "pm.test(\"Title is correct\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData.title).to.eql(\"Yeni Yazı\");",
+                      "});"
+                    ],
+                    "_lastExecutionId": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "75d64dee-28d9-456b-a48b-42ab4c97e867",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "_lastExecutionId": "1b3b9d79-38e5-447f-b297-ff1c158e83c7"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+              "name": "GET Users",
+              "request": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": " {{auth_token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Test 1: Status code kontrolü\r",
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "// Test 2: Response array mi kontrol et\r",
+                      "pm.test(\"Response is an array\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.be.an('array');\r",
+                      "});\r",
+                      "\r",
+                      "// Test 3: İlk kullanıcının email'i doğru mu\r",
+                      "pm.test(\"First user has correct structure\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData[0]).to.have.property('name');\r",
+                      "    pm.expect(jsonData[0]).to.have.property('email');\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "4f870edd-07d5-444e-8e0d-48ca7c286d0e",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "df79ed5e-0a47-4ac8-814b-0637bea85a7f"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "da1a778b-c91a-4d3c-846c-95411e7d7f93",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "14681f3e-0a45-4a75-98d7-380657c843c6"
+              }
+            }
+          ],
+          "variable": [
+            {
+              "type": "any",
+              "value": "1",
+              "key": "id"
+            },
+            {
+              "type": "any",
+              "value": "https://template.postman-echo.com",
+              "key": "base_url"
+            }
+          ],
+          "info": {
+            "_postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+            "name": "Blog API Testleri",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+            "description": {
+              "content": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+              "type": "text/plain"
+            }
+          }
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 2,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "b7f779de-9c8c-4a4e-80bc-7b87290287a2",
+          "httpRequestId": "3a00e5f1-c9b1-4143-ae8d-5062b536e422",
+          "scriptId": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+          "execution": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+        }
+      },
+      {
+        "error": {
+          "name": "JSONError",
+          "index": 2,
+          "test": "Title is correct",
+          "message": "\"undefined\" is not valid JSON",
+          "stack": "JSONError: \"undefined\" is not valid JSON\n   at Object.eval sandbox-script.js:3:1)",
+          "checksum": "e0d376d4e14b649b76c906ce3177314a",
+          "id": "e89f5828-558a-4a7b-9ec8-7f27af10402d",
+          "timestamp": 1761595733854,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 3,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:2 in test-script",
+        "source": {
+          "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+          "name": "POST Post",
+          "request": {
+            "description": {
+              "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "posts"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": " {{auth_token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Test 1: Status 201 Created",
+                  "pm.test(\"Post created successfully\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "// Test 2: Response'da ID var mı",
+                  "pm.test(\"Response has ID\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property('id');",
+                  "    pm.expect(jsonData.id).to.be.a('number');",
+                  "});",
+                  "",
+                  "// Test 3: Title doğru mu",
+                  "pm.test(\"Title is correct\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.title).to.eql(\"Yeni Yazı\");",
+                  "});"
+                ],
+                "_lastExecutionId": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "75d64dee-28d9-456b-a48b-42ab4c97e867",
+                "type": "text/javascript",
+                "packages": {},
+                "_lastExecutionId": "1b3b9d79-38e5-447f-b297-ff1c158e83c7"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+            "exporter_id": "46610723"
+          },
+          "item": [
+            {
+              "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+              "name": "POST Post",
+              "request": {
+                "description": {
+                  "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "posts"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": " {{auth_token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Test 1: Status 201 Created",
+                      "pm.test(\"Post created successfully\", function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "",
+                      "// Test 2: Response'da ID var mı",
+                      "pm.test(\"Response has ID\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('id');",
+                      "    pm.expect(jsonData.id).to.be.a('number');",
+                      "});",
+                      "",
+                      "// Test 3: Title doğru mu",
+                      "pm.test(\"Title is correct\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData.title).to.eql(\"Yeni Yazı\");",
+                      "});"
+                    ],
+                    "_lastExecutionId": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "75d64dee-28d9-456b-a48b-42ab4c97e867",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "_lastExecutionId": "1b3b9d79-38e5-447f-b297-ff1c158e83c7"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+              "name": "GET Users",
+              "request": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": " {{auth_token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Test 1: Status code kontrolü\r",
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "// Test 2: Response array mi kontrol et\r",
+                      "pm.test(\"Response is an array\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.be.an('array');\r",
+                      "});\r",
+                      "\r",
+                      "// Test 3: İlk kullanıcının email'i doğru mu\r",
+                      "pm.test(\"First user has correct structure\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData[0]).to.have.property('name');\r",
+                      "    pm.expect(jsonData[0]).to.have.property('email');\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "4f870edd-07d5-444e-8e0d-48ca7c286d0e",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "df79ed5e-0a47-4ac8-814b-0637bea85a7f"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "da1a778b-c91a-4d3c-846c-95411e7d7f93",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "14681f3e-0a45-4a75-98d7-380657c843c6"
+              }
+            }
+          ],
+          "variable": [
+            {
+              "type": "any",
+              "value": "1",
+              "key": "id"
+            },
+            {
+              "type": "any",
+              "value": "https://template.postman-echo.com",
+              "key": "base_url"
+            }
+          ],
+          "info": {
+            "_postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+            "name": "Blog API Testleri",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+            "description": {
+              "content": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+              "type": "text/plain"
+            }
+          }
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 2,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "b7f779de-9c8c-4a4e-80bc-7b87290287a2",
+          "httpRequestId": "3a00e5f1-c9b1-4143-ae8d-5062b536e422",
+          "scriptId": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+          "execution": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+        }
+      },
+      {
+        "error": {
+          "name": "Error",
+          "message": "Invalid URI \"http:///api/v1/users\"",
+          "stack": "Error: Invalid URI \"http:///api/v1/users\"\n    at Request.init (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-request/request.js:399:31)\n    at new Request (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-request/request.js:226:8)\n    at request (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-request/index.js:46:10)\n    at /mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js:79:23\n    at wrapper (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:273:20)\n    at next (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:5797:24)\n    at /mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:329:20\n    at setCertificate (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js:50:20)\n    at /mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js:74:13\n    at nextTask (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:5791:13)\n    at next (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:5799:13)\n    at /mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:329:20\n    at setProxy (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js:31:9)\n    at /mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js:71:13\n    at nextTask (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:5791:13)\n    at Object.waterfall (/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js:5802:9)",
+          "checksum": "439176a56b5ec5ebbc53e3be96c6561f",
+          "id": "f3ba17ee-ee6e-4cc7-b9d9-d9bb7404b424",
+          "timestamp": 1761595733863,
+          "stacktrace": [
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-request/request.js",
+              "lineNumber": 399,
+              "functionName": "Request.init",
+              "typeName": "Request",
+              "methodName": "init",
+              "columnNumber": 31,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-request/request.js",
+              "lineNumber": 226,
+              "functionName": "new Request",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 8,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-request/index.js",
+              "lineNumber": 46,
+              "functionName": "request",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 10,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js",
+              "lineNumber": 79,
+              "functionName": null,
+              "typeName": null,
+              "methodName": null,
+              "columnNumber": 23,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 273,
+              "functionName": "wrapper",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 20,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 5797,
+              "functionName": "next",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 24,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 329,
+              "functionName": null,
+              "typeName": null,
+              "methodName": null,
+              "columnNumber": 20,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js",
+              "lineNumber": 50,
+              "functionName": "setCertificate",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 20,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js",
+              "lineNumber": 74,
+              "functionName": null,
+              "typeName": null,
+              "methodName": null,
+              "columnNumber": 13,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 5791,
+              "functionName": "nextTask",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 13,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 5799,
+              "functionName": "next",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 13,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 329,
+              "functionName": null,
+              "typeName": null,
+              "methodName": null,
+              "columnNumber": 20,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js",
+              "lineNumber": 31,
+              "functionName": "setProxy",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 9,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/postman-runtime/lib/requester/request-wrapper.js",
+              "lineNumber": 71,
+              "functionName": null,
+              "typeName": null,
+              "methodName": null,
+              "columnNumber": 13,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 5791,
+              "functionName": "nextTask",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 13,
+              "native": false
+            },
+            {
+              "fileName": "/mnt/c/Users/begum/AppData/Roaming/npm/node_modules/newman/node_modules/async/dist/async.js",
+              "lineNumber": 5802,
+              "functionName": "Object.waterfall",
+              "typeName": "Object",
+              "methodName": "waterfall",
+              "columnNumber": 9,
+              "native": false
+            }
+          ]
+        },
+        "at": "request",
+        "source": {
+          "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+          "name": "GET Users",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "path": [
+                "v1",
+                "users"
+              ],
+              "host": [
+                "api"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer  ",
+                "system": true
+              },
+              {
+                "key": "User-Agent",
+                "value": "PostmanRuntime/7.39.1",
+                "system": true
+              },
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "system": true
+              },
+              {
+                "key": "Cache-Control",
+                "value": "no-cache",
+                "system": true
+              },
+              {
+                "key": "Postman-Token",
+                "value": "ca67d6b9-a56e-494f-adcf-27656ee6ea2f",
+                "system": true
+              },
+              {
+                "key": "Host",
+                "value": "",
+                "system": true
+              },
+              {
+                "key": "Accept-Encoding",
+                "value": "gzip, deflate, br",
+                "system": true
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive",
+                "system": true
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": " ",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Test 1: Status code kontrolü\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Test 2: Response array mi kontrol et\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "// Test 3: İlk kullanıcının email'i doğru mu\r",
+                  "pm.test(\"First user has correct structure\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData[0]).to.have.property('name');\r",
+                  "    pm.expect(jsonData[0]).to.have.property('email');\r",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        "cursor": {
+          "ref": "5c572ce1-86a9-4870-bc0a-88de355164d6",
+          "length": 2,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "3f0cca49-315a-459a-a6c5-4a5827e5188d"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 0,
+          "test": "Status code is 200",
+          "message": "expected PostmanResponse{ …(5) } to have property 'code'",
+          "stack": "AssertionError: expected PostmanResponse{ …(5) } to have property 'code'\n   at Object.eval sandbox-script.js:1:2)",
+          "checksum": "169020131664477cec85b1c00a6464f6",
+          "id": "0292c1da-b970-4e3a-b335-81d4c1e41482",
+          "timestamp": 1761595733868,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 1,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 2,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:0 in test-script",
+        "source": {
+          "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+          "name": "GET Users",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": " {{auth_token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Test 1: Status code kontrolü\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Test 2: Response array mi kontrol et\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "// Test 3: İlk kullanıcının email'i doğru mu\r",
+                  "pm.test(\"First user has correct structure\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData[0]).to.have.property('name');\r",
+                  "    pm.expect(jsonData[0]).to.have.property('email');\r",
+                  "});"
+                ],
+                "_lastExecutionId": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+            "exporter_id": "46610723"
+          },
+          "item": [
+            {
+              "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+              "name": "POST Post",
+              "request": {
+                "description": {
+                  "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "posts"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": " {{auth_token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Test 1: Status 201 Created",
+                      "pm.test(\"Post created successfully\", function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "",
+                      "// Test 2: Response'da ID var mı",
+                      "pm.test(\"Response has ID\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('id');",
+                      "    pm.expect(jsonData.id).to.be.a('number');",
+                      "});",
+                      "",
+                      "// Test 3: Title doğru mu",
+                      "pm.test(\"Title is correct\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData.title).to.eql(\"Yeni Yazı\");",
+                      "});"
+                    ],
+                    "_lastExecutionId": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "75d64dee-28d9-456b-a48b-42ab4c97e867",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "_lastExecutionId": "1b3b9d79-38e5-447f-b297-ff1c158e83c7"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+              "name": "GET Users",
+              "request": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": " {{auth_token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Test 1: Status code kontrolü\r",
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "// Test 2: Response array mi kontrol et\r",
+                      "pm.test(\"Response is an array\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.be.an('array');\r",
+                      "});\r",
+                      "\r",
+                      "// Test 3: İlk kullanıcının email'i doğru mu\r",
+                      "pm.test(\"First user has correct structure\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData[0]).to.have.property('name');\r",
+                      "    pm.expect(jsonData[0]).to.have.property('email');\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "4f870edd-07d5-444e-8e0d-48ca7c286d0e",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "df79ed5e-0a47-4ac8-814b-0637bea85a7f"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "da1a778b-c91a-4d3c-846c-95411e7d7f93",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "14681f3e-0a45-4a75-98d7-380657c843c6"
+              }
+            }
+          ],
+          "variable": [
+            {
+              "type": "any",
+              "value": "1",
+              "key": "id"
+            },
+            {
+              "type": "any",
+              "value": "https://template.postman-echo.com",
+              "key": "base_url"
+            }
+          ],
+          "info": {
+            "_postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+            "name": "Blog API Testleri",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+            "description": {
+              "content": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+              "type": "text/plain"
+            }
+          }
+        },
+        "cursor": {
+          "ref": "5c572ce1-86a9-4870-bc0a-88de355164d6",
+          "length": 2,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "3f0cca49-315a-459a-a6c5-4a5827e5188d",
+          "scriptId": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+          "execution": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+        }
+      },
+      {
+        "error": {
+          "name": "JSONError",
+          "index": 1,
+          "test": "Response is an array",
+          "message": "\"undefined\" is not valid JSON",
+          "stack": "JSONError: \"undefined\" is not valid JSON\n   at Object.eval sandbox-script.js:2:2)",
+          "checksum": "c98042875aeb9bfe6efb2f6360e24943",
+          "id": "da210693-63db-4fc9-b431-0cdd629f8817",
+          "timestamp": 1761595733868,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 2,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 2,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:1 in test-script",
+        "source": {
+          "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+          "name": "GET Users",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": " {{auth_token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Test 1: Status code kontrolü\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Test 2: Response array mi kontrol et\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "// Test 3: İlk kullanıcının email'i doğru mu\r",
+                  "pm.test(\"First user has correct structure\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData[0]).to.have.property('name');\r",
+                  "    pm.expect(jsonData[0]).to.have.property('email');\r",
+                  "});"
+                ],
+                "_lastExecutionId": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+            "exporter_id": "46610723"
+          },
+          "item": [
+            {
+              "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+              "name": "POST Post",
+              "request": {
+                "description": {
+                  "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "posts"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": " {{auth_token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Test 1: Status 201 Created",
+                      "pm.test(\"Post created successfully\", function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "",
+                      "// Test 2: Response'da ID var mı",
+                      "pm.test(\"Response has ID\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('id');",
+                      "    pm.expect(jsonData.id).to.be.a('number');",
+                      "});",
+                      "",
+                      "// Test 3: Title doğru mu",
+                      "pm.test(\"Title is correct\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData.title).to.eql(\"Yeni Yazı\");",
+                      "});"
+                    ],
+                    "_lastExecutionId": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "75d64dee-28d9-456b-a48b-42ab4c97e867",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "_lastExecutionId": "1b3b9d79-38e5-447f-b297-ff1c158e83c7"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+              "name": "GET Users",
+              "request": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": " {{auth_token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Test 1: Status code kontrolü\r",
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "// Test 2: Response array mi kontrol et\r",
+                      "pm.test(\"Response is an array\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.be.an('array');\r",
+                      "});\r",
+                      "\r",
+                      "// Test 3: İlk kullanıcının email'i doğru mu\r",
+                      "pm.test(\"First user has correct structure\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData[0]).to.have.property('name');\r",
+                      "    pm.expect(jsonData[0]).to.have.property('email');\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "4f870edd-07d5-444e-8e0d-48ca7c286d0e",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "df79ed5e-0a47-4ac8-814b-0637bea85a7f"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "da1a778b-c91a-4d3c-846c-95411e7d7f93",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "14681f3e-0a45-4a75-98d7-380657c843c6"
+              }
+            }
+          ],
+          "variable": [
+            {
+              "type": "any",
+              "value": "1",
+              "key": "id"
+            },
+            {
+              "type": "any",
+              "value": "https://template.postman-echo.com",
+              "key": "base_url"
+            }
+          ],
+          "info": {
+            "_postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+            "name": "Blog API Testleri",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+            "description": {
+              "content": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+              "type": "text/plain"
+            }
+          }
+        },
+        "cursor": {
+          "ref": "5c572ce1-86a9-4870-bc0a-88de355164d6",
+          "length": 2,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "3f0cca49-315a-459a-a6c5-4a5827e5188d",
+          "scriptId": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+          "execution": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+        }
+      },
+      {
+        "error": {
+          "name": "JSONError",
+          "index": 2,
+          "test": "First user has correct structure",
+          "message": "\"undefined\" is not valid JSON",
+          "stack": "JSONError: \"undefined\" is not valid JSON\n   at Object.eval sandbox-script.js:3:2)",
+          "checksum": "3926dd7d2326dd41e264c7b957a1d292",
+          "id": "a649bb29-502b-4fad-a9e4-11f57d298a34",
+          "timestamp": 1761595733868,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 3,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 2,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:2 in test-script",
+        "source": {
+          "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+          "name": "GET Users",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "type": "string",
+                  "value": " {{auth_token}}",
+                  "key": "token"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "// Test 1: Status code kontrolü\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Test 2: Response array mi kontrol et\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "// Test 3: İlk kullanıcının email'i doğru mu\r",
+                  "pm.test(\"First user has correct structure\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData[0]).to.have.property('name');\r",
+                  "    pm.expect(jsonData[0]).to.have.property('email');\r",
+                  "});"
+                ],
+                "_lastExecutionId": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+            "exporter_id": "46610723"
+          },
+          "item": [
+            {
+              "id": "7d12605b-fa50-4ed3-ac25-a41596ee8a5f",
+              "name": "POST Post",
+              "request": {
+                "description": {
+                  "content": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "posts"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Yeni Yazı\",\n  \"content\": \"Rails ile kategori hatası çözümü.\",\n  \"user_id\": 5,\n  \"category_id\": 5\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": " {{auth_token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "81c5abfb-ad45-40d2-8c89-887af971b98b",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Test 1: Status 201 Created",
+                      "pm.test(\"Post created successfully\", function () {",
+                      "    pm.response.to.have.status(201);",
+                      "});",
+                      "",
+                      "// Test 2: Response'da ID var mı",
+                      "pm.test(\"Response has ID\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.have.property('id');",
+                      "    pm.expect(jsonData.id).to.be.a('number');",
+                      "});",
+                      "",
+                      "// Test 3: Title doğru mu",
+                      "pm.test(\"Title is correct\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData.title).to.eql(\"Yeni Yazı\");",
+                      "});"
+                    ],
+                    "_lastExecutionId": "cb3f487a-bf0c-413b-a836-006dbae7997a"
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "75d64dee-28d9-456b-a48b-42ab4c97e867",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "_lastExecutionId": "1b3b9d79-38e5-447f-b297-ff1c158e83c7"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "3cd7b32e-e7d1-4e98-81c2-d56a1fffdd1c",
+              "name": "GET Users",
+              "request": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "users"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "type": "string",
+                      "value": " {{auth_token}}",
+                      "key": "token"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "// Test 1: Status code kontrolü\r",
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "// Test 2: Response array mi kontrol et\r",
+                      "pm.test(\"Response is an array\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.be.an('array');\r",
+                      "});\r",
+                      "\r",
+                      "// Test 3: İlk kullanıcının email'i doğru mu\r",
+                      "pm.test(\"First user has correct structure\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData[0]).to.have.property('name');\r",
+                      "    pm.expect(jsonData[0]).to.have.property('email');\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "4f870edd-07d5-444e-8e0d-48ca7c286d0e",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "df79ed5e-0a47-4ac8-814b-0637bea85a7f"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "da1a778b-c91a-4d3c-846c-95411e7d7f93",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "14681f3e-0a45-4a75-98d7-380657c843c6"
+              }
+            }
+          ],
+          "variable": [
+            {
+              "type": "any",
+              "value": "1",
+              "key": "id"
+            },
+            {
+              "type": "any",
+              "value": "https://template.postman-echo.com",
+              "key": "base_url"
+            }
+          ],
+          "info": {
+            "_postman_id": "d3380262-cd6b-4719-8a68-5bec3f612051",
+            "name": "Blog API Testleri",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+            "description": {
+              "content": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+              "type": "text/plain"
+            }
+          }
+        },
+        "cursor": {
+          "ref": "5c572ce1-86a9-4870-bc0a-88de355164d6",
+          "length": 2,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "3f0cca49-315a-459a-a6c5-4a5827e5188d",
+          "scriptId": "a71c4d1f-1715-4f28-835a-91ff2f7c0431",
+          "execution": "dd6562f0-fd1e-4fde-90c0-b106e2896cf9"
+        }
+      }
+    ],
+    "error": null
+  }
+}

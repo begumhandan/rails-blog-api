@@ -1,0 +1,21 @@
+{
+	"id": "8336287d-37af-448e-a325-6b6a09548a4d",
+	"name": "Blog API Enviroment",
+	"values": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "auth_token",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-10-27T20:20:03.739Z",
+	"_postman_exported_using": "Postman/11.69.0"
+}
