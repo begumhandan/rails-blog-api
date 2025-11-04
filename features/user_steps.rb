@@ -10,7 +10,7 @@ When('the user submits valid registration details') do
       email: "test#{Time.now.to_i}@example.com"
     }
   }
-  
+
   post '/api/v1/users', @user_data.to_json, { 'CONTENT_TYPE' => 'application/json' }
   @response = last_response
   @created_user = JSON.parse(@response.body) if @response.status == 201
@@ -32,7 +32,7 @@ When('the user logs in with valid credentials') do
   login_data = {
     email: @created_user['email']
   }
-  
+
   post '/api/v1/login', login_data.to_json, { 'CONTENT_TYPE' => 'application/json' }
   @login_response = last_response
   @login_data = JSON.parse(@login_response.body) if @login_response.status == 200
@@ -48,7 +48,7 @@ end
 And('Context7 should reflect the active user context') do
   @context[:active_user] = @login_data['user']
   @context[:auth_token] = @login_data['token']
-  
+
   expect(@context[:active_user]).not_to be_nil
   expect(@context[:auth_token]).not_to be_nil
   puts "Active user context: #{@context[:active_user]['name']}"
