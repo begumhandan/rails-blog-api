@@ -47,3 +47,9 @@ group :development, :test do
 end
 gem "jwt"
 gem "terser"
+group :development, :test do
+  gem "cucumber-rails", require: false
+  gem "database_cleaner-active_record"
+  gem 'rspec-expectations'
+  gem 'rack-test'
+end
