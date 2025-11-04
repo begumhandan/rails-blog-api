@@ -1,58 +1,109 @@
-# Blog API Projesi
+📝 Blog API Projesi
 
-Ruby on Rails ile geliştirilmiş RESTful Blog API'si
+Ruby on Rails ile geliştirilmiş RESTful Blog API’si ve React tabanlı yönetim paneli (frontend).
 
-## 📋 Proje Hakkında
+📋 Proje Hakkında
 
-Bu proje Ruby on Rails kullanılarak geliştirilmiş bir blog API'sidir.
-Proje tamamen API modunda çalışmakta olup ön yüz bulunmamaktadır.
+Bu proje Ruby on Rails ile geliştirilen bir RESTful Blog API’si ve React (Vite + TailwindCSS) kullanılarak yapılmış bir frontend arayüzü içermektedir.
+Proje hem backend (API) hem de frontend (dashboard) bileşenlerini kapsar.
+Ek olarak, Cypress ile uçtan uca (E2E) testler ve Cucumber ile senaryo tabanlı kabul testleri uygulanmıştır.
 
-## 🎯 Özellikler
+🎯 Özellikler
+🔹 Backend (Ruby on Rails)
 
-- 5 model ile geliştirildi (User, Category, Post, Tag, Comment)
-- RESTful API mimarisi
-- JSON formatında veri dönüşü
-- Model validasyonları
-- İlişkisel veritabanı yapısı
+5 model: User, Category, Post, Tag, Comment
 
-## 📦 Modeller
+RESTful API mimarisi
 
-1. **User** - Kullanıcılar
-2. **Category** - Kategoriler
-3. **Post** - Blog yazıları
-4. **Tag** - Etiketler
-5. **Comment** - Yorumlar
+JSON formatında veri dönüşü
 
-## 🚀 Kurulum
+Model validasyonları ve ilişki yapısı
 
-```bash
+API endpoint'leri test edilmiştir
+
+🔹 Frontend (React + TypeScript + TailwindCSS)
+
+Vite yapılandırması
+
+Shadcn/UI bileşenleri
+
+Zod + React Hook Form ile form validasyonu
+
+Dashboard görünümü: kullanıcı yönetimi, kayıt ekleme vb.
+
+Responsive tasarım
+
+🔹 Testler
+
+Cypress: E2E testler (dashboard, form işlemleri)
+
+Cucumber (Gherkin): Davranış odaklı (BDD) senaryolar
+
+Test kayıtları video & screenshot olarak saklanır
+
+📦 Modeller
+
+User – Kullanıcılar
+
+Category – Kategoriler
+
+Post – Blog yazıları
+
+Tag – Etiketler
+
+Comment – Yorumlar
+
+🚀 Kurulum
+1️⃣ Backend (Rails API)
+
 # Repoyu klonlayın
+
 git clone https://github.com/begumhandan/rails-blog-api.git
 cd rails-blog-api
 
 # Bağımlılıkları yükleyin
+
 bundle install
 
 # Veritabanını oluşturun
+
 rails db:create
 rails db:migrate
 rails db:seed
 
 # Sunucuyu başlatın
+
 rails server
-```
+2️⃣ Frontend (React + Vite)
+cd frontend
+npm install
+npm run dev
 
-## 🛠️ Teknolojiler
+Frontend varsayılan olarak http://localhost:5173 adresinde çalışır.
 
-- Ruby 3.x
-- Rails 7.x
-- SQLite3
-- Git & GitHub
+🧪 Test Çalıştırma
+Cypress E2E Testleri
 
-## 👤 Geliştirici
+# Testleri başlat
 
-[Begüm Handan Demir]
+npx cypress open
 
-## 📅 Proje Tarihi
+# veya headless modda:
 
-22 Ekim 2025
+npx cypress run
+Cucumber Senaryoları
+bundle exec cucumber
+🛠️ Teknolojiler
+Katman Teknoloji
+Backend Ruby 3.x, Rails 7.x, SQLite3
+Frontend React 18, TypeScript, TailwindCSS, Shadcn/UI
+Test Cypress, Cucumber (Gherkin), Jest
+Versiyonlama Git & GitHub
+👩‍💻 Geliştirici
+
+Begüm Handan Demir
+📧 GitHub Profilim
+
+📅 Proje Tarihi
+
+22 Ekim 2025 – Geliştirme süreci boyunca düzenli olarak genişletilmiştir
